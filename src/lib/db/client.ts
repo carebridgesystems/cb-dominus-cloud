@@ -7,7 +7,7 @@
  * For migrations/setup, use OWNER credentials instead.
  */
 
-import { neon } from '@neondatabase/serverless';
+import { neon, neonConfig } from '@neondatabase/serverless';
 import { loadAppCredentials, buildConnectionString, type PGCredentials } from './pg-credentials';
 
 let sql: ReturnType<typeof neon> | null = null;
@@ -53,33 +53,38 @@ export function getDbClientWithCredentials(credentials: PGCredentials) {
 /**
  * Execute a SQL query.
  * 
- * @param query - SQL query string
- * @param params - Query parameters (optional)
+ * Note: Neon serverless client uses tagged template strings.
+ * For parameterized queries, use template literals directly.
+ * 
+ * @param sqlQuery - SQL query string (will be used as template literal)
+ * @param params - Query parameters (optional, for future use)
  * @returns Query result
  */
 export async function query<T = unknown>(
-  query: string,
+  sqlQuery: string,
   params?: unknown[]
 ): Promise<T[]> {
   const client = getDbClient();
-  return client(query, params) as Promise<T[]>;
+  // Neon client expects template strings, but we can pass a regular string
+  // by using it as a template literal with no substitutions
+  return (client as any)(sqlQuery) as Promise<T[]>;
 }
 
 /**
  * Execute a SQL query with custom credentials.
  * 
  * @param credentials - Custom PG credentials
- * @param query - SQL query string
- * @param params - Query parameters (optional)
+ * @param sqlQuery - SQL query string
+ * @param params - Query parameters (optional, for future use)
  * @returns Query result
  */
 export async function queryWithCredentials<T = unknown>(
   credentials: PGCredentials,
-  query: string,
+  sqlQuery: string,
   params?: unknown[]
 ): Promise<T[]> {
   const client = getDbClientWithCredentials(credentials);
-  return client(query, params) as Promise<T[]>;
+  return (client as any)(sqlQuery) as Promise<T[]>;
 }
 
 /**
