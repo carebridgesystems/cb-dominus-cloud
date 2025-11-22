@@ -22,9 +22,9 @@ export function SiteHeader() {
     const pathname = usePathname();
 
     // Generate breadcrumbs based on current path
-    const getBreadcrumbs = () => {
+    const getBreadcrumbs = (): Array<{ label: string; href: string; isPage: boolean }> => {
         const paths = pathname.split('/').filter(Boolean);
-        const breadcrumbs = [];
+        const breadcrumbs: Array<{ label: string; href: string; isPage: boolean }> = [];
 
         if (paths.length === 0 || (paths.length === 1 && paths[0] === 'dashboard')) {
             return [{ label: 'Dashboard', href: '/dashboard', isPage: true }];
