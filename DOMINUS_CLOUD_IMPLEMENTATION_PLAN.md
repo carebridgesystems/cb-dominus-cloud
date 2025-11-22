@@ -331,16 +331,29 @@ export const { GET, POST } = toNextJsHandler(auth)
 
 ### 4.1 Sovereign External API Overview
 
-**Base URL:** `https://sovereign-cloud-development-775398158805.us-east4.run.app`
+**API Documentation:** [Sovereign Cloud API Docs](https://sovereign-cloud-development-775398158805.us-east4.run.app/docs#/default/root__head)
+
+**Base URLs (Environment-Specific):**
+- **Development**: `https://sovereign-cloud-development-775398158805.us-east4.run.app`
+- **Staging**: `https://sovereign-cloud-staging-775398158805.us-east4.run.app`
+- **Production**: `https://sovereign-cloud-production-775398158805.us-east4.run.app`
 
 **External API Endpoints (`/api/*`):**
-- `POST /api/secrets/get` - Get secret value
-- `POST /api/secrets/upsert` - Create/update secret
+- `POST /api/secrets/get` - Get secret value (token-authenticated)
+- `POST /api/secrets/upsert` - Create/update secret value (token-authenticated)
 
 **Authentication:**
 - Token-based via `Authorization: Bearer <base64-encoded-token>` header
 - Token maps to project/environment via `config/token_mappings.json`
 - Request/response bodies are Base64-encoded JSON
+- Tokens are 32 bytes (64 hex characters) - must be Base64-encoded when sent
+
+**Key Features:**
+- ✅ Token-based authentication (no JWTs needed)
+- ✅ Base64 encoding for request/response bodies (avoids character escaping issues)
+- ✅ Environment-specific tokens (dev/staging/prod)
+- ✅ Project isolation via token mapping
+- ✅ Direct Infisical integration (Sovereign handles all Infisical API calls)
 
 ### 4.2 Token Mapping System
 
@@ -366,35 +379,162 @@ export const { GET, POST } = toNextJsHandler(auth)
 
 **Create `src/lib/api/sovereign.ts`:**
 
+**Type Definitions:**
 ```typescript
-// Functions:
-// - getSecret(key: string, environment: 'development' | 'staging' | 'production')
-// - upsertSecret(key: string, value: string, environment: ...)
-// - Helper: getTokenForEnvironment(env)
-// - Helper: base64Encode/decode for request/response
+type Environment = 'development' | 'staging' | 'production';
+
+interface TokenMapping {
+  project_slug: string;
+  environment: Environment;
+  project_id: string;
+}
+
+interface GetSecretRequest {
+  key: string;
+  environment?: Environment;
+}
+
+interface UpsertSecretRequest {
+  key: string;
+  value: string;
+  environment?: Environment;
+}
+
+interface SovereignResponse<T> {
+  success: boolean;
+  data?: T;
+  error?: string;
+}
+```
+
+**Core Functions:**
+```typescript
+// 1. Load token mappings
+function loadTokenMappings(): Record<string, TokenMapping>
+
+// 2. Get token for environment
+function getTokenForEnvironment(env: Environment): string
+
+// 3. Base64 encoding helpers
+function base64Encode(data: string): string
+function base64Decode(data: string): string
+
+// 4. API client functions
+async function getSecret(
+  key: string, 
+  environment: Environment
+): Promise<string | null>
+
+async function upsertSecret(
+  key: string, 
+  value: string, 
+  environment: Environment
+): Promise<boolean>
 ```
 
 **Implementation Details:**
-1. Read token from `config/token_mappings.json` based on environment
-2. Base64 encode the token for Authorization header
-3. Base64 encode request body JSON
-4. Base64 decode response body JSON
-5. Handle errors and retries
 
-### 4.4 API Route Wrapper
+1. **Load Token Mappings:**
+   - Read `config/token_mappings.json` at build time (or runtime for server components)
+   - Parse JSON and create lookup map
+   - Token format: 64 hex characters (32 bytes)
 
-**Create `src/app/api/sovereign/[...path]/route.ts`:**
+2. **Get Token for Environment:**
+   - Look up token in mappings using current environment
+   - Return raw token (hex string)
+   - Handle missing token errors
 
-- Proxy requests to Sovereign Cloud
-- Add authentication headers
-- Handle Base64 encoding/decoding
-- Forward responses to frontend
+3. **Base64 Encoding:**
+   - Token: Convert hex string to Buffer, then Base64 encode
+   - Request body: JSON.stringify → Base64 encode
+   - Response body: Base64 decode → JSON.parse
 
-**OR**
+4. **API Request Flow:**
+   ```
+   Get Token → Base64 Encode Token
+   Create Request Body → JSON Stringify → Base64 Encode
+   Send POST with Authorization: Bearer <base64-token>
+   Receive Response → Base64 Decode → JSON Parse
+   Return Data or Handle Error
+   ```
 
-**Direct Client Usage:**
-- Use Sovereign client directly in Server Components
-- No API route needed (simpler)
+5. **Error Handling:**
+   - Network errors (retry with exponential backoff)
+   - Authentication errors (invalid token)
+   - Not found errors (secret doesn't exist)
+   - Validation errors (invalid request format)
+
+6. **Environment Detection:**
+   - Use `process.env.ENV` (set by Cloud Run: `dev`, `staging`, `prod`)
+   - Map to Sovereign environment: `development`, `staging`, `production`
+   - Default to `development` in local dev
+
+### 4.4 API Request Examples
+
+**Example: Get Secret**
+
+```typescript
+// Request
+POST https://sovereign-cloud-development-775398158805.us-east4.run.app/api/secrets/get
+Headers:
+  Authorization: Bearer <base64-encoded-token>
+  Content-Type: application/json
+Body (Base64-encoded):
+  "eyJrZXkiOiAiREFUQUJBU0VfVVJMIn0="  // {"key": "DATABASE_URL"}
+
+// Response (Base64-encoded):
+"eyJzdWNjZXNzIjogdHJ1ZSwgImRhdGEiOiAicG9zdGdyZXNxbDovL3VzZXI6cGFzcyRob3N0L2RiIn0="
+// {"success": true, "data": "postgresql://user:pass@host/db"}
+```
+
+**Example: Upsert Secret**
+
+```typescript
+// Request
+POST https://sovereign-cloud-development-775398158805.us-east4.run.app/api/secrets/upsert
+Headers:
+  Authorization: Bearer <base64-encoded-token>
+  Content-Type: application/json
+Body (Base64-encoded):
+  "eyJrZXkiOiAiQVBJX0tFWSIsICJ2YWx1ZSI6ICJza19saXZlX2FiYzEyMyJ9"
+  // {"key": "API_KEY", "value": "sk_live_abc123"}
+
+// Response (Base64-encoded):
+"eyJzdWNjZXNzIjogdHJ1ZSwgIm1lc3NhZ2UiOiAiU2VjcmV0IHVwZGF0ZWQifQ=="
+// {"success": true, "message": "Secret updated"}
+```
+
+### 4.5 Implementation Pattern
+
+**Recommended: Direct Client Usage in Server Components**
+
+**Why:**
+- ✅ Simpler (no API route proxy needed)
+- ✅ Server-side only (secrets never exposed to client)
+- ✅ Better performance (direct API calls)
+- ✅ Type-safe with TypeScript
+- ✅ No CORS issues (server-to-server)
+
+**Pattern:**
+```typescript
+// In Server Component
+import { getSecret, upsertSecret } from '@/lib/api/sovereign';
+
+export default async function SecretsPage() {
+  // Server-side only - secrets never sent to client
+  const dbUrl = await getSecret('DATABASE_URL', 'development');
+  
+  return <div>{/* Render UI */}</div>;
+}
+```
+
+**Alternative: API Route Proxy (if needed for client-side calls)**
+
+Only use if you need to call Sovereign from client components (not recommended for secrets):
+```typescript
+// src/app/api/sovereign/[...path]/route.ts
+// Proxy to Sovereign, add auth, handle encoding
+```
 
 ### 4.5 Environment Detection
 
