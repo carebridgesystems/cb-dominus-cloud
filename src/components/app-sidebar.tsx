@@ -66,7 +66,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </SidebarHeader>
             <SidebarContent>
                 <SidebarGroup>
-                    <SidebarGroupLabel>Navigation</SidebarGroupLabel>
+                    <SidebarGroupLabel className='group-data-[collapsible=icon]:hidden'>Navigation</SidebarGroupLabel>
                     <SidebarMenu>
                         {navigation.map((item) => {
                             const isActive = pathname === item.url;

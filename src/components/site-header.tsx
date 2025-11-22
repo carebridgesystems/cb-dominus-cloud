@@ -10,15 +10,11 @@ import {
     BreadcrumbPage,
     BreadcrumbSeparator
 } from '@/registry/new-york-v4/ui/breadcrumb';
-import { Button } from '@/registry/new-york-v4/ui/button';
 import { Separator } from '@/registry/new-york-v4/ui/separator';
-import { useSidebar } from '@/registry/new-york-v4/ui/sidebar';
-
-import { SidebarIcon } from 'lucide-react';
+import { SidebarTrigger, useSidebar } from '@/registry/new-york-v4/ui/sidebar';
 import { usePathname } from 'next/navigation';
 
 export function SiteHeader() {
-    const { toggleSidebar } = useSidebar();
     const pathname = usePathname();
 
     // Generate breadcrumbs based on current path
@@ -51,9 +47,7 @@ export function SiteHeader() {
     return (
         <header className='bg-background sticky top-0 z-50 flex w-full items-center border-b'>
             <div className='flex h-(--header-height) w-full items-center gap-2 px-4'>
-                <Button className='h-8 w-8' variant='ghost' size='icon' onClick={toggleSidebar}>
-                    <SidebarIcon />
-                </Button>
+                <SidebarTrigger className='-ml-1' />
                 <Separator orientation='vertical' className='mr-2 h-4' />
                 <Breadcrumb className='hidden sm:block'>
                     <BreadcrumbList>
