@@ -4,22 +4,22 @@ import { SiteHeader } from '@/components/site-header';
 import { SidebarInset, SidebarProvider } from '@/registry/new-york-v4/ui/sidebar';
 
 /**
- * Dashboard layout with sidebar and header
+ * Dashboard layout with full-height sidebar and header
+ * Sidebar is full height with its own header
+ * Main content area has its own header for breadcrumbs and search
  * Will add authentication protection in Phase 3
  */
 export default function DashboardLayout({ children }: { children: ReactNode }) {
     return (
-        <div className='[--header-height:calc(--spacing(14))]'>
-            <SidebarProvider className='flex flex-col'>
+        <SidebarProvider>
+            <AppSidebar />
+            <SidebarInset>
                 <SiteHeader />
-                <div className='flex flex-1'>
-                    <AppSidebar />
-                    <SidebarInset>
-                        {children}
-                    </SidebarInset>
-                </div>
-            </SidebarProvider>
-        </div>
+                <main className="flex flex-1 flex-col gap-4 p-4">
+                    {children}
+                </main>
+            </SidebarInset>
+        </SidebarProvider>
     );
 }
 

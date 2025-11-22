@@ -7,8 +7,7 @@ import {
     LayoutDashboard,
     FolderOpen,
     Key,
-    Settings,
-    ChevronRightIcon
+    Settings
 } from 'lucide-react';
 import {
     Sidebar,
@@ -48,49 +47,66 @@ const navigation = [
     }
 ];
 
+/**
+ * AppSidebar - Full-height sidebar with header, content, and footer
+ * Follows official shadcn/ui sidebar pattern
+ * Collapses to icon mode when toggled
+ */
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     const pathname = usePathname();
 
     return (
-        <Sidebar className='top-(--header-height) h-[calc(100svh-var(--header-height))]!' collapsible='icon' {...props}>
+        <Sidebar collapsible="icon" {...props}>
             <SidebarHeader>
-                <div className="flex items-center gap-2 px-2 py-4">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-                        <span className="text-sm font-bold">DC</span>
-                    </div>
-                    <div className="group-data-[collapsible=icon]:hidden">
-                        <div className="text-sm font-semibold">Dominus Cloud</div>
-                        <div className="text-xs text-muted-foreground">Admin Orchestrator</div>
-                    </div>
-                </div>
+                <SidebarMenu>
+                    <SidebarMenuItem>
+                        <SidebarMenuButton size="lg" asChild>
+                            <Link href="/dashboard">
+                                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+                                    <span className="text-sm font-bold">DC</span>
+                                </div>
+                                <div className="grid flex-1 text-left text-sm leading-tight">
+                                    <span className="truncate font-semibold">Dominus Cloud</span>
+                                    <span className="truncate text-xs text-sidebar-foreground/70">Admin Orchestrator</span>
+                                </div>
+                            </Link>
+                        </SidebarMenuButton>
+                    </SidebarMenuItem>
+                </SidebarMenu>
             </SidebarHeader>
             <SidebarContent>
                 <SidebarGroup>
-                    <SidebarGroupLabel className='group-data-[collapsible=icon]:hidden'>Navigation</SidebarGroupLabel>
-                    <SidebarMenu>
-                        {navigation.map((item) => {
-                            const isActive = pathname === item.url;
-                            return (
-                                <SidebarMenuItem key={item.title}>
-                                    <SidebarMenuButton asChild isActive={isActive}>
-                                        <Link href={item.url}>
-                                            <item.icon />
-                                            <span>{item.title}</span>
-                                        </Link>
-                                    </SidebarMenuButton>
-                                </SidebarMenuItem>
-                            );
-                        })}
-                    </SidebarMenu>
+                    <SidebarGroupLabel>Navigation</SidebarGroupLabel>
+                    <SidebarGroupContent>
+                        <SidebarMenu>
+                            {navigation.map((item) => {
+                                const isActive = pathname === item.url;
+                                return (
+                                    <SidebarMenuItem key={item.title}>
+                                        <SidebarMenuButton asChild isActive={isActive}>
+                                            <Link href={item.url}>
+                                                <item.icon />
+                                                <span>{item.title}</span>
+                                            </Link>
+                                        </SidebarMenuButton>
+                                    </SidebarMenuItem>
+                                );
+                            })}
+                        </SidebarMenu>
+                    </SidebarGroupContent>
                 </SidebarGroup>
             </SidebarContent>
             <SidebarFooter>
-                <div className="flex items-center justify-between px-2 py-2">
-                    <ModeToggle />
-                    <div className="group-data-[collapsible=icon]:hidden text-xs text-muted-foreground">
-                        CareBridge Systems
-                    </div>
-                </div>
+                <SidebarMenu>
+                    <SidebarMenuItem>
+                        <div className="flex items-center justify-between px-2 py-2">
+                            <ModeToggle />
+                            <div className="group-data-[collapsible=icon]:hidden text-xs text-sidebar-foreground/70">
+                                CareBridge Systems
+                            </div>
+                        </div>
+                    </SidebarMenuItem>
+                </SidebarMenu>
             </SidebarFooter>
             <SidebarRail />
         </Sidebar>
