@@ -1,12 +1,15 @@
 'use client';
 
 import * as React from 'react';
-
-import { Index } from '@/__registry__';
-import { NavUser } from '@/registry/new-york-v4/blocks/sidebar-07/components/nav-user';
-import { TeamSwitcher } from '@/registry/new-york-v4/blocks/sidebar-07/components/team-switcher';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/registry/new-york-v4/ui/collapsible';
-import { Label } from '@/registry/new-york-v4/ui/label';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import {
+    LayoutDashboard,
+    FolderOpen,
+    Key,
+    Settings,
+    ChevronRightIcon
+} from 'lucide-react';
 import {
     Sidebar,
     SidebarContent,
@@ -15,219 +18,81 @@ import {
     SidebarGroupContent,
     SidebarGroupLabel,
     SidebarHeader,
-    SidebarInput,
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
-    SidebarMenuSub,
-    SidebarMenuSubButton,
-    SidebarMenuSubItem,
     SidebarRail
 } from '@/registry/new-york-v4/ui/sidebar';
+import { ModeToggle } from '@/components/mode-toggle';
 
-import {
-    AudioWaveform,
-    BookOpen,
-    Bot,
-    ChevronRightIcon,
-    Command,
-    GalleryVerticalEnd,
-    Search,
-    Settings2,
-    SquareTerminal
-} from 'lucide-react';
-
-// This is sample data.
-const data = {
-    user: {
-        name: 'shadcn',
-        email: 'm@example.com',
-        avatar: '/avatars/shadcn.jpg'
+const navigation = [
+    {
+        title: 'Dashboard',
+        url: '/dashboard',
+        icon: LayoutDashboard
     },
-    teams: [
-        {
-            name: 'Acme Inc',
-            logo: GalleryVerticalEnd,
-            plan: 'Enterprise'
-        },
-        {
-            name: 'Acme Corp.',
-            logo: AudioWaveform,
-            plan: 'Startup'
-        },
-        {
-            name: 'Evil Corp.',
-            logo: Command,
-            plan: 'Free'
-        }
-    ],
-    navMain: [
-        {
-            title: 'Playground',
-            url: '#',
-            icon: SquareTerminal,
-            isActive: true,
-            items: [
-                {
-                    title: 'History',
-                    url: '#'
-                },
-                {
-                    title: 'Starred',
-                    url: '#'
-                },
-                {
-                    title: 'Settings',
-                    url: '#'
-                }
-            ]
-        },
-        {
-            title: 'Models',
-            url: '#',
-            icon: Bot,
-            items: [
-                {
-                    title: 'Genesis',
-                    url: '#'
-                },
-                {
-                    title: 'Explorer',
-                    url: '#'
-                },
-                {
-                    title: 'Quantum',
-                    url: '#'
-                }
-            ]
-        },
-        {
-            title: 'Documentation',
-            url: '#',
-            icon: BookOpen,
-            items: [
-                {
-                    title: 'Introduction',
-                    url: '#'
-                },
-                {
-                    title: 'Get Started',
-                    url: '#'
-                },
-                {
-                    title: 'Tutorials',
-                    url: '#'
-                },
-                {
-                    title: 'Changelog',
-                    url: '#'
-                }
-            ]
-        },
-        {
-            title: 'Settings',
-            url: '#',
-            icon: Settings2,
-            items: [
-                {
-                    title: 'General',
-                    url: '#'
-                },
-                {
-                    title: 'Team',
-                    url: '#'
-                },
-                {
-                    title: 'Billing',
-                    url: '#'
-                },
-                {
-                    title: 'Limits',
-                    url: '#'
-                }
-            ]
-        }
-    ],
-    components: Object.values(Index).filter((item) => item.type === 'registry:ui')
-};
+    {
+        title: 'Projects',
+        url: '/dashboard/projects',
+        icon: FolderOpen
+    },
+    {
+        title: 'Secrets',
+        url: '/dashboard/secrets',
+        icon: Key
+    },
+    {
+        title: 'Settings',
+        url: '/dashboard/settings',
+        icon: Settings
+    }
+];
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+    const pathname = usePathname();
+
     return (
         <Sidebar collapsible='icon' {...props}>
             <SidebarHeader>
-                <TeamSwitcher teams={data.teams} />
-                <SidebarGroup className='py-0 group-data-[collapsible=icon]:hidden'>
-                    <SidebarGroupContent>
-                        <form className='relative'>
-                            <Label htmlFor='search' className='sr-only'>
-                                Search
-                            </Label>
-                            <SidebarInput id='search' placeholder='Search the docs...' className='pl-8' />
-                            <Search className='pointer-events-none absolute top-1/2 left-2 size-4 -translate-y-1/2 opacity-50 select-none' />
-                        </form>
-                    </SidebarGroupContent>
-                </SidebarGroup>
+                <div className="flex items-center gap-2 px-2 py-4">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+                        <span className="text-sm font-bold">DC</span>
+                    </div>
+                    <div className="group-data-[collapsible=icon]:hidden">
+                        <div className="text-sm font-semibold">Dominus Cloud</div>
+                        <div className="text-xs text-muted-foreground">Admin Orchestrator</div>
+                    </div>
+                </div>
             </SidebarHeader>
             <SidebarContent>
                 <SidebarGroup>
-                    <SidebarGroupLabel>Platform</SidebarGroupLabel>
+                    <SidebarGroupLabel>Navigation</SidebarGroupLabel>
                     <SidebarMenu>
-                        {data.navMain.map((item) => (
-                            <Collapsible
-                                key={item.title}
-                                asChild
-                                defaultOpen={item.isActive}
-                                className='group/collapsible'>
-                                <SidebarMenuItem>
-                                    <CollapsibleTrigger asChild>
-                                        <SidebarMenuButton tooltip={item.title}>
-                                            {item.icon && <item.icon />}
+                        {navigation.map((item) => {
+                            const isActive = pathname === item.url;
+                            return (
+                                <SidebarMenuItem key={item.title}>
+                                    <SidebarMenuButton asChild isActive={isActive}>
+                                        <Link href={item.url}>
+                                            <item.icon />
                                             <span>{item.title}</span>
-                                            <ChevronRightIcon className='ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90' />
-                                        </SidebarMenuButton>
-                                    </CollapsibleTrigger>
-                                    <CollapsibleContent>
-                                        <SidebarMenuSub>
-                                            {item.items?.map((subItem) => (
-                                                <SidebarMenuSubItem key={subItem.title}>
-                                                    <SidebarMenuSubButton asChild>
-                                                        <a href={subItem.url}>
-                                                            <span>{subItem.title}</span>
-                                                        </a>
-                                                    </SidebarMenuSubButton>
-                                                </SidebarMenuSubItem>
-                                            ))}
-                                        </SidebarMenuSub>
-                                    </CollapsibleContent>
+                                        </Link>
+                                    </SidebarMenuButton>
                                 </SidebarMenuItem>
-                            </Collapsible>
-                        ))}
-                    </SidebarMenu>
-                </SidebarGroup>
-                <SidebarGroup className='group-data-[collapsible=icon]:hidden'>
-                    <SidebarGroupLabel>Components</SidebarGroupLabel>
-                    <SidebarMenu>
-                        {data.components.map((item) => (
-                            <SidebarMenuItem key={item.name}>
-                                <SidebarMenuButton asChild>
-                                    <a href={`/#${item.name}`}>
-                                        <span>{getComponentName(item.name)}</span>
-                                    </a>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
-                        ))}
+                            );
+                        })}
                     </SidebarMenu>
                 </SidebarGroup>
             </SidebarContent>
             <SidebarFooter>
-                <NavUser user={data.user} />
+                <div className="flex items-center justify-between px-2 py-2">
+                    <ModeToggle />
+                    <div className="group-data-[collapsible=icon]:hidden text-xs text-muted-foreground">
+                        CareBridge Systems
+                    </div>
+                </div>
             </SidebarFooter>
             <SidebarRail />
         </Sidebar>
     );
-}
-
-function getComponentName(name: string) {
-    // convert kebab-case to title case
-    return name.replace(/-/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
 }

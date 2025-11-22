@@ -1,0 +1,77 @@
+{
+  "26966421cd83fffe81e3b741a83ad69a0633d4360b97c2d0172f1f150480aa44": {
+    "project_slug": "cb-quartermaster-cloud",
+    "environment": "development",
+    "project_id": "5f89c103-b3e5-472c-bc86-fd499f5c8867"
+  },
+  "f9266d0b108473292ed52ea4deefe484747271b6d23756b45e2109833d7b1b59": {
+    "project_slug": "cb-quartermaster-cloud",
+    "environment": "staging",
+    "project_id": "5f89c103-b3e5-472c-bc86-fd499f5c8867"
+  },
+  "db574c11eb282fbdc79e1d93f814b45cef22b49ccc4bb1a8e7db4b861cf397af": {
+    "project_slug": "cb-quartermaster-cloud",
+    "environment": "production",
+    "project_id": "5f89c103-b3e5-472c-bc86-fd499f5c8867"
+  },
+  "e053d9e8d8a26735c75a2eb41d95c6679d5876e2d1b298d120061f5fb9d2062c": {
+    "project_slug": "cb-architect-cloud",
+    "environment": "development",
+    "project_id": "21ccccac-a974-4b6a-9925-9f1107d450e5"
+  },
+  "837fb9da7510793206c8cb846a6e1a2704607f1e78d900425555556c815e0850": {
+    "project_slug": "cb-architect-cloud",
+    "environment": "staging",
+    "project_id": "21ccccac-a974-4b6a-9925-9f1107d450e5"
+  },
+  "e989b61bda44892c98fc387aa49f266fbf336895d5cfa11909352a493c00414e": {
+    "project_slug": "cb-architect-cloud",
+    "environment": "production",
+    "project_id": "21ccccac-a974-4b6a-9925-9f1107d450e5"
+  },
+  "c51578f077b4db97155be94449bb31acda1b2570896f80e4b41c00ad8230314e": {
+    "project_slug": "cb-orchestrator-cloud",
+    "environment": "development",
+    "project_id": "0381348c-bbdc-4fd4-bf5e-381699c683d5"
+  },
+  "a378ae17bb3c575dbe3af838226ad9b15ad2f8dd88890e672ae795de1311685c": {
+    "project_slug": "cb-orchestrator-cloud",
+    "environment": "staging",
+    "project_id": "0381348c-bbdc-4fd4-bf5e-381699c683d5"
+  },
+  "bc167698d984011728490ea0cf2c3ceff775b95d3ddd961cd6bc33a0f85440f0": {
+    "project_slug": "cb-orchestrator-cloud",
+    "environment": "production",
+    "project_id": "0381348c-bbdc-4fd4-bf5e-381699c683d5"
+  },
+  "9a78c9db8468693e4235dba01d859a0b8c455c685435f3f87079e9904d9ee346": {
+    "project_slug": "cb-warden-cloud",
+    "environment": "development",
+    "project_id": "153800ad-6d1b-40c7-b709-27bb10ccfb2d"
+  },
+  "e4756e6b30e221301af39838874996bb73446d3857ddeb06fa4419262c490f73": {
+    "project_slug": "cb-warden-cloud",
+    "environment": "staging",
+    "project_id": "153800ad-6d1b-40c7-b709-27bb10ccfb2d"
+  },
+  "f6be02af77139e3551892aef2902a5408d7f7679697c9255cc3588123a8987a1": {
+    "project_slug": "cb-warden-cloud",
+    "environment": "production",
+    "project_id": "153800ad-6d1b-40c7-b709-27bb10ccfb2d"
+  },
+  "1f9efd620db8f91dbb97d421c63a30664cc453b30895367bd107dadff7aaa5f4": {
+    "project_slug": "cb-dominus-cloud",
+    "environment": "development",
+    "project_id": "eee53992-e541-43c1-8147-5f7c310df805"
+  },
+  "f8f34fd05ca5bbe2078b9a3953c690b93f4a300f1d380ed41ed4135dbbdda9e7": {
+    "project_slug": "cb-dominus-cloud",
+    "environment": "staging",
+    "project_id": "eee53992-e541-43c1-8147-5f7c310df805"
+  },
+  "c0e03cbf19a8c0215df080c9456adf7f43e8d65ad92933690e866df73f36e691": {
+    "project_slug": "cb-dominus-cloud",
+    "environment": "production",
+    "project_id": "eee53992-e541-43c1-8147-5f7c310df805"
+  }
+}
