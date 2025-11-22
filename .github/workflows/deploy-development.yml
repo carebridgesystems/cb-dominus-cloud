@@ -1,0 +1,180 @@
+# ============================================================================
+# TEMPLATE: GitHub Actions Deployment Workflow - Development Environment
+# ============================================================================
+#
+# This is a TEMPLATE workflow file. Copy this to your repository and customize
+# the values marked with "← CHANGE THIS" comments.
+#
+# CRITICAL LESSONS LEARNED (Updated from agent-api production implementation):
+#
+# 1. SECRET HANDLING - GitHub Secrets Only (NO Google Secret Manager)
+#    - Use --set-env-vars to inject secrets from GitHub Secrets
+#    - NEVER use --update-secrets or --set-secrets (those bind GSM secrets)
+#    - If deployment fails with "Secret not found", run --clear-secrets first
+#    - Add fail-fast validation checks at start of deployment step
+#    - Customize secret checks based on YOUR application requirements
+#
+# 2. PORT Environment Variable
+#    - Cloud Run sets PORT automatically - DO NOT include it in --set-env-vars
+#    - Error if included: "reserved env names were provided: PORT"
+#    - Do NOT use --port flag in gcloud run deploy (Cloud Run manages this)
+#
+# 3. ENV Values for Frameworks (CRITICAL!)
+#    - Use ENV=dev (NOT "development") for Agno library compatibility
+#    - Use ENV=staging (correct)
+#    - Use ENV=prod (NOT "production")
+#    - Error if wrong: "Invalid Playground Env"
+#
+# 4. GCP Project Context
+#    - ALWAYS include --project=${{ env.PROJECT_ID }} in gcloud run deploy
+#    - Ensures deployment targets correct GCP project
+#    - Prevents accidental deployments to wrong project
+#
+# 5. Resource Configuration (Development Environment)
+#    - CPU: 1 core (adequate for development workloads)
+#    - Memory: 512Mi (adjust based on application needs)
+#    - No min-instances specified (allows scaling to zero to save costs)
+#    - No max-instances limit (can remove --concurrency for simplicity)
+#    - Timeout: 300s (5 minutes)
+#
+# 6. PostgreSQL Drivers (Python/FastAPI)
+#    - Need BOTH psycopg (v3) AND psycopg2-binary in requirements.txt
+#    - SQLAlchemy defaults to psycopg2 for postgresql:// URLs
+#    - Add: psycopg2-binary==2.9.10
+#
+# 7. YAML Syntax
+#    - Watch for literal \n in comments (causes workflow to fail at 0s)
+#    - Use proper line continuations with backslashes
+#    - No literal newline characters in workflow files
+#
+# 8. Sanity Check Steps (REMOVED)
+#    - Do NOT add "Sanity check deploy script" steps
+#    - These were removed via fix_workflows.py due to issues
+#    - Keep deployment workflow simple and focused
+#
+# ============================================================================
+
+name: Deploy to Development
+
+on:
+  push:
+    branches: [development]
+
+env:
+  # ============================================================================
+  # UPDATE THESE VALUES FOR YOUR REPOSITORY
+  # ============================================================================
+  PROJECT_ID: elegant-tendril-443004-v0
+  REGION: us-east4
+  SERVICE_NAME: dominus-cloud-development
+  REGISTRY: us-east4-docker.pkg.dev
+  REPOSITORY: cloud-run-source-deploy
+  IMAGE_NAME: cb-dominus-cloud/dominus-cloud-development
+  # ============================================================================
+  #
+  # CUSTOMIZATION GUIDE:
+  # 1. Update SERVICE_NAME to match your service (e.g., "my-api-development")
+  # 2. Update IMAGE_NAME with your repo and service names
+  # 3. Update the secret validation section in "Deploy to Cloud Run" step
+  # 4. Update --set-env-vars with YOUR application's environment variables
+  # 5. Adjust CPU/memory based on your application requirements
+  # 6. Configure GitHub Environment secrets in repo settings
+  #
+  # ============================================================================
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    # Use GitHub Environment for environment-specific secrets and protection rules
+    environment:
+      name: development
+
+    permissions:
+      contents: read
+      id-token: write  # Required for Workload Identity Federation
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Configure Docker for Artifact Registry
+        run: |
+          gcloud auth configure-docker ${{ env.REGISTRY }}
+
+      - name: Build Docker image
+        run: |
+          docker build \
+            -t ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} \
+            -t ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:latest \
+            .
+
+      - name: Push Docker image to Artifact Registry
+        run: |
+          docker push ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          docker push ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
+
+      - name: Deploy to Cloud Run
+        run: |
+          # Fail fast if required secrets are missing (GitHub Secrets only - NO GSM)
+          # IMPORTANT: Customize this section based on your application's secret requirements
+          # Example: Uncomment and modify these checks for your specific secrets
+          # if [ -z "${{ secrets.DATABASE_URL }}" ]; then
+          #   echo "ERROR: Missing GitHub secret DATABASE_URL"
+          #   exit 1
+          # fi
+          # if [ -z "${{ secrets.OPENAI_API_KEY }}" ]; then
+          #   echo "ERROR: Missing GitHub secret OPENAI_API_KEY"
+          #   exit 1
+          # fi
+
+          # CRITICAL NOTES:
+          # - Use --set-env-vars (NOT --update-secrets or --set-secrets which bind GSM)
+          # - Do NOT include PORT in --set-env-vars (Cloud Run sets it automatically)
+          # - Use ENV=dev (NOT "development") for framework compatibility (e.g., Agno library)
+          # - Include --project to ensure correct GCP project context
+          # - Customize --set-env-vars with your application's specific environment variables
+
+          gcloud run deploy ${{ env.SERVICE_NAME }} \
+            --image=${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} \
+            --region=${{ env.REGION }} \
+            --project=${{ env.PROJECT_ID }} \
+            --platform=managed \
+            --allow-unauthenticated \
+            --cpu=1 \
+            --memory=1Gi \
+            --min-instances=0 \
+            --max-instances=10 \
+            --timeout=300s \
+            --set-env-vars="ENV=dev,NODE_ENV=production" \
+            --quiet
+
+      - name: Verify deployment
+        run: |
+          SERVICE_URL=$(gcloud run services describe ${{ env.SERVICE_NAME }} \
+            --region=${{ env.REGION }} \
+            --format='value(status.url)')
+          echo "✅ Service deployed to: $SERVICE_URL"
+          echo "SERVICE_URL=$SERVICE_URL" >> $GITHUB_OUTPUT
+
+      - name: Create deployment summary
+        run: |
+          SERVICE_URL=$(gcloud run services describe ${{ env.SERVICE_NAME }} \
+            --region=${{ env.REGION }} \
+            --format='value(status.url)')
+          echo "## 🚀 Deployment Successful" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Environment:** Development" >> $GITHUB_STEP_SUMMARY
+          echo "**Service:** ${{ env.SERVICE_NAME }}" >> $GITHUB_STEP_SUMMARY
+          echo "**URL:** $SERVICE_URL" >> $GITHUB_STEP_SUMMARY
+          echo "**Image:** ${{ env.IMAGE_NAME }}:${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Region:** ${{ env.REGION }}" >> $GITHUB_STEP_SUMMARY
