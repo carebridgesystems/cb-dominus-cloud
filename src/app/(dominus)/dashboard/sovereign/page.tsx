@@ -30,9 +30,19 @@ function base64Decode(str: string): string {
  */
 async function getProjectInfo(): Promise<SovereignProject | null> {
     try {
+        // Log the raw token
+        console.log('[Sovereign] Raw token:', SOVEREIGN_DEV_TOKEN);
+        console.log('[Sovereign] Raw token length:', SOVEREIGN_DEV_TOKEN.length);
+
         // Encode token for Authorization header
         const encodedToken = base64Encode(SOVEREIGN_DEV_TOKEN);
+        console.log('[Sovereign] Encoded token:', encodedToken);
         console.log('[Sovereign] Encoded token length:', encodedToken.length);
+
+        // Verify roundtrip
+        const decoded = base64Decode(encodedToken);
+        console.log('[Sovereign] Roundtrip decoded:', decoded);
+        console.log('[Sovereign] Roundtrip matches:', decoded === SOVEREIGN_DEV_TOKEN);
 
         // Encode request body
         const requestBody = JSON.stringify({ project_id: DOMINUS_PROJECT_ID });
