@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import {
     LayoutDashboard,
     FolderOpen,
@@ -13,18 +12,16 @@ import {
     Sidebar,
     SidebarContent,
     SidebarFooter,
-    SidebarGroup,
-    SidebarGroupContent,
-    SidebarGroupLabel,
     SidebarHeader,
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
     SidebarRail
 } from '@/registry/new-york-v4/ui/sidebar';
-import { ModeToggle } from '@/components/mode-toggle';
+import { NavMain, type NavMainItem } from '@/components/nav-main';
+import { NavFooter } from '@/components/nav-footer';
 
-const navigation = [
+const navigation: NavMainItem[] = [
     {
         title: 'Dashboard',
         url: '/dashboard',
@@ -51,10 +48,9 @@ const navigation = [
  * AppSidebar - Full-height sidebar with header, content, and footer
  * Follows official shadcn/ui sidebar pattern
  * Collapses to icon mode when toggled
+ * Uses organized Nav components for better maintainability
  */
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-    const pathname = usePathname();
-
     return (
         <Sidebar collapsible="icon" {...props}>
             <SidebarHeader>
@@ -75,38 +71,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 </SidebarMenu>
             </SidebarHeader>
             <SidebarContent>
-                <SidebarGroup>
-                    <SidebarGroupLabel>Navigation</SidebarGroupLabel>
-                    <SidebarGroupContent>
-                        <SidebarMenu>
-                            {navigation.map((item) => {
-                                const isActive = pathname === item.url;
-                                return (
-                                    <SidebarMenuItem key={item.title}>
-                                        <SidebarMenuButton asChild isActive={isActive}>
-                                            <Link href={item.url}>
-                                                <item.icon />
-                                                <span>{item.title}</span>
-                                            </Link>
-                                        </SidebarMenuButton>
-                                    </SidebarMenuItem>
-                                );
-                            })}
-                        </SidebarMenu>
-                    </SidebarGroupContent>
-                </SidebarGroup>
+                <NavMain items={navigation} />
             </SidebarContent>
             <SidebarFooter>
-                <SidebarMenu>
-                    <SidebarMenuItem>
-                        <div className="flex items-center justify-between px-2 py-2">
-                            <ModeToggle />
-                            <div className="group-data-[collapsible=icon]:hidden text-xs text-sidebar-foreground/70">
-                                CareBridge Systems
-                            </div>
-                        </div>
-                    </SidebarMenuItem>
-                </SidebarMenu>
+                <NavFooter />
             </SidebarFooter>
             <SidebarRail />
         </Sidebar>

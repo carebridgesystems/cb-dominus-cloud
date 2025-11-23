@@ -10,14 +10,11 @@ import {
     BreadcrumbPage,
     BreadcrumbSeparator
 } from '@/registry/new-york-v4/ui/breadcrumb';
-import { Button } from '@/registry/new-york-v4/ui/button';
 import { Separator } from '@/registry/new-york-v4/ui/separator';
-import { useSidebar } from '@/registry/new-york-v4/ui/sidebar';
-import { Menu } from 'lucide-react';
+import { SidebarTrigger } from '@/registry/new-york-v4/ui/sidebar';
 import { usePathname } from 'next/navigation';
 
 export function SiteHeader() {
-    const { toggleSidebar } = useSidebar();
     const pathname = usePathname();
 
     // Generate breadcrumbs based on current path
@@ -48,18 +45,10 @@ export function SiteHeader() {
     const breadcrumbs = getBreadcrumbs();
 
     return (
-        <header className='bg-background sticky top-0 z-50 flex w-full items-center border-b'>
-            <div className='flex h-(--header-height) w-full items-center gap-2 px-4'>
-                <Button 
-                    variant='ghost' 
-                    size='icon' 
-                    className='h-8 w-8 -ml-1' 
-                    onClick={toggleSidebar}
-                    aria-label='Toggle sidebar'
-                >
-                    <Menu className='h-4 w-4' />
-                </Button>
-                <Separator orientation='vertical' className='mr-2 h-4' />
+        <header className='bg-background sticky top-0 z-50 flex h-16 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12'>
+            <div className='flex w-full items-center gap-2 px-4'>
+                <SidebarTrigger className='-ml-1' />
+                <Separator orientation='vertical' className='mr-2 data-[orientation=vertical]:h-4' />
                 <Breadcrumb className='hidden sm:block'>
                     <BreadcrumbList>
                         {breadcrumbs.map((crumb, index) => (
