@@ -5,6 +5,7 @@
  * These are reference implementations and can be used as starting points.
  */
 
+export { AlertDemo } from './alert-demo';
 export { BadgeDemo } from './badge-demo';
 export { ButtonDemo } from './button-demo';
 export { CardDemo } from './card-demo';
