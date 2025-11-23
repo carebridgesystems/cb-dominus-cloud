@@ -15,3 +15,4 @@ function CollapsibleContent({ ...props }: React.ComponentProps<typeof Collapsibl
 }
 
 export { Collapsible, CollapsibleTrigger, CollapsibleContent };
+

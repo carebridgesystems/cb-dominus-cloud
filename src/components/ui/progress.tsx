@@ -21,3 +21,4 @@ function Progress({ className, value, ...props }: React.ComponentProps<typeof Pr
 }
 
 export { Progress };
+

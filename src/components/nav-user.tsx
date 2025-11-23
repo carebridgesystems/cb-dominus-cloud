@@ -126,3 +126,4 @@ export function NavUser({ user }: NavUserProps) {
         </SidebarMenu>
     );
 }
+

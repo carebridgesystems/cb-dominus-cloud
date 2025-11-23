@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 
-import { cn } from '@/registry/new-york-v4/lib/utils';
+import { cn } from '@/lib/utils';
 
 export function ComponentWrapper({
     className,
@@ -56,3 +56,4 @@ function getComponentName(name: string) {
     // convert kebab-case to title case
     return name.replace(/-/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
 }
+
