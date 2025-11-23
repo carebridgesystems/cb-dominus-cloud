@@ -19,7 +19,7 @@ import {
     SidebarRail
 } from '@/registry/new-york-v4/ui/sidebar';
 import { NavMain, type NavMainItem } from '@/components/nav-main';
-import { NavFooter } from '@/components/nav-footer';
+import { NavUser } from '@/components/nav-user';
 
 const navigation: NavMainItem[] = [
     {
@@ -43,6 +43,13 @@ const navigation: NavMainItem[] = [
         icon: Settings
     }
 ];
+
+// Sample user data - TODO: Replace with actual user data from auth/session
+const userData = {
+    name: 'Admin User',
+    email: 'admin@carebridge.systems',
+    avatar: '/avatars/default.jpg'
+};
 
 /**
  * AppSidebar - Full-height sidebar with header, content, and footer
@@ -74,7 +81,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <NavMain items={navigation} />
             </SidebarContent>
             <SidebarFooter>
-                <NavFooter />
+                <NavUser user={userData} />
             </SidebarFooter>
             <SidebarRail />
         </Sidebar>
