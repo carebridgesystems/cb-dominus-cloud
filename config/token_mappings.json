@@ -73,5 +73,20 @@
     "project_slug": "cb-dominus-cloud",
     "environment": "production",
     "project_id": "eee53992-e541-43c1-8147-5f7c310df805"
+  },
+  "6cc61b277bf45b3752a1cd90d4eca316586374e710b540c25fc551b4986a7d1b": {
+    "project_slug": "cb-sovereign-cloud",
+    "environment": "development",
+    "project_id": "b5325ec3-c336-4d4f-adfd-a2308b699fd3"
+  },
+  "11d23d708a282186e8a32b4052b1cc02ab1812c3ba9dc406e20718414316b2b3": {
+    "project_slug": "cb-sovereign-cloud",
+    "environment": "staging",
+    "project_id": "b5325ec3-c336-4d4f-adfd-a2308b699fd3"
+  },
+  "3544144f2de8969cbeb76f5e4f9fba73a1ff220a033ab24b2e369cd9d00092dd": {
+    "project_slug": "cb-sovereign-cloud",
+    "environment": "production",
+    "project_id": "b5325ec3-c336-4d4f-adfd-a2308b699fd3"
   }
 }
