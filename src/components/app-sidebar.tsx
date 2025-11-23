@@ -6,7 +6,8 @@ import {
     LayoutDashboard,
     FolderOpen,
     Key,
-    Settings
+    Settings,
+    Crown
 } from 'lucide-react';
 import {
     Sidebar,
@@ -26,6 +27,11 @@ const navigation: NavMainItem[] = [
         title: 'Dashboard',
         url: '/dashboard',
         icon: LayoutDashboard
+    },
+    {
+        title: 'Sovereign',
+        url: '/dashboard/sovereign',
+        icon: Crown
     },
     {
         title: 'Projects',
