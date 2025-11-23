@@ -32,12 +32,18 @@ async function getProjectInfo(): Promise<SovereignProject | null> {
     try {
         // Encode token for Authorization header
         const encodedToken = base64Encode(SOVEREIGN_DEV_TOKEN);
+        console.log('[Sovereign] Encoded token length:', encodedToken.length);
 
         // Encode request body
         const requestBody = JSON.stringify({ project_id: DOMINUS_PROJECT_ID });
         const encodedBody = base64Encode(requestBody);
+        console.log('[Sovereign] Request body:', requestBody);
+        console.log('[Sovereign] Encoded body:', encodedBody);
 
-        const response = await fetch(`${SOVEREIGN_URL}/api/projects/get`, {
+        const url = `${SOVEREIGN_URL}/api/projects/get`;
+        console.log('[Sovereign] Calling:', url);
+
+        const response = await fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'text/plain',
@@ -47,17 +53,33 @@ async function getProjectInfo(): Promise<SovereignProject | null> {
             cache: 'no-store'
         });
 
+        console.log('[Sovereign] Response status:', response.status);
+        console.log('[Sovereign] Response headers:', Object.fromEntries(response.headers.entries()));
+
         if (!response.ok) {
-            console.error('Failed to fetch project info:', response.statusText);
+            const errorText = await response.text();
+            console.error('[Sovereign] Error response:', errorText);
+            try {
+                const decodedError = base64Decode(errorText);
+                console.error('[Sovereign] Decoded error:', decodedError);
+            } catch {
+                console.error('[Sovereign] Could not decode error response');
+            }
             return null;
         }
 
         // Decode base64 response
         const encodedResponse = await response.text();
+        console.log('[Sovereign] Raw response:', encodedResponse.substring(0, 100));
         const decodedResponse = base64Decode(encodedResponse);
+        console.log('[Sovereign] Decoded response:', decodedResponse);
         return JSON.parse(decodedResponse);
     } catch (error) {
-        console.error('Error fetching project info:', error);
+        console.error('[Sovereign] Error fetching project info:', error);
+        if (error instanceof Error) {
+            console.error('[Sovereign] Error message:', error.message);
+            console.error('[Sovereign] Error stack:', error.stack);
+        }
         return null;
     }
 }
@@ -89,6 +111,7 @@ export default async function SovereignPage() {
             ) : (
                 <div className='rounded-lg border border-destructive/50 p-4'>
                     <p className='text-sm text-destructive'>Failed to load project information from Sovereign</p>
+                    <p className='text-xs text-muted-foreground mt-2'>Check server logs for details</p>
                 </div>
             )}
         </div>
