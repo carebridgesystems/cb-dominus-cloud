@@ -24,6 +24,7 @@ interface NavSecondaryProps extends React.ComponentPropsWithoutRef<typeof Sideba
  * NavSecondary - Secondary navigation component for sidebar
  * Typically used for support, help, or additional links
  * Can be positioned at bottom of sidebar with mt-auto
+ * Compatible with lucide-react icons (LucideIcon type)
  */
 export function NavSecondary({ items, ...props }: NavSecondaryProps) {
     return (
