@@ -2,7 +2,7 @@
 
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { CheckCircle, XCircle, AlertTriangle, HelpCircle, LucideIcon } from 'lucide-react';
+import { CheckCircle, XCircle, AlertTriangle, HelpCircle } from 'lucide-react';
 
 export type ServiceStatus = 'ok' | 'warn' | 'error' | 'unknown';
 
@@ -10,7 +10,7 @@ export interface StatusCardProps {
     title: string;
     status: ServiceStatus;
     lastChecked?: string;
-    icon?: LucideIcon;
+    icon?: React.ReactNode;
     description?: string;
 }
 
@@ -18,7 +18,7 @@ export interface StatusCardProps {
  * StatusCard - Health status indicator for services
  * Displays service name, status badge, and optional metadata
  */
-export function StatusCard({ title, status, lastChecked, icon: Icon, description }: StatusCardProps) {
+export function StatusCard({ title, status, lastChecked, icon, description }: StatusCardProps) {
     const statusConfig = {
         ok: {
             variant: 'default' as const,
@@ -53,7 +53,7 @@ export function StatusCard({ title, status, lastChecked, icon: Icon, description
         <Card className="w-full">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <div className="flex items-center gap-2">
-                    {Icon && <Icon className="h-5 w-5 text-muted-foreground" />}
+                    {icon}
                     <CardTitle className="text-sm font-medium">{title}</CardTitle>
                 </div>
                 <Badge variant={config.variant}>

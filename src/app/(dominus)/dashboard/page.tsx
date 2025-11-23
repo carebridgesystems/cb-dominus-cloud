@@ -1,5 +1,3 @@
-'use client';
-
 import { Shield, Megaphone, Radio, Crown, Users } from 'lucide-react';
 import { StatusCard, ServiceStatus } from '@/components/status-card';
 
@@ -9,35 +7,35 @@ const services = [
         title: 'Warden',
         status: 'ok' as ServiceStatus,
         description: 'Secrets management',
-        icon: Shield,
+        icon: <Shield className="h-5 w-5 text-muted-foreground" />,
         lastChecked: '2s ago'
     },
     {
         title: 'Herald',
         status: 'ok' as ServiceStatus,
         description: 'Logging & events',
-        icon: Megaphone,
+        icon: <Megaphone className="h-5 w-5 text-muted-foreground" />,
         lastChecked: '5s ago'
     },
     {
         title: 'Whisperer',
         status: 'warn' as ServiceStatus,
         description: 'Cache layer',
-        icon: Radio,
+        icon: <Radio className="h-5 w-5 text-muted-foreground" />,
         lastChecked: '10s ago'
     },
     {
         title: 'Sovereign',
         status: 'ok' as ServiceStatus,
         description: 'Authentication',
-        icon: Crown,
+        icon: <Crown className="h-5 w-5 text-muted-foreground" />,
         lastChecked: '3s ago'
     },
     {
         title: 'Conductor',
         status: 'error' as ServiceStatus,
         description: 'Agent orchestration',
-        icon: Users,
+        icon: <Users className="h-5 w-5 text-muted-foreground" />,
         lastChecked: '1m ago'
     }
 ];
