@@ -10,26 +10,40 @@ interface SovereignProject {
     [key: string]: any;
 }
 
-interface SovereignSecret {
-    key: string;
-    value?: string;
-    [key: string]: any;
+/**
+ * Base64 encode a string (matches Python's base64.b64encode)
+ */
+function base64Encode(str: string): string {
+    return Buffer.from(str, 'utf-8').toString('base64');
+}
+
+/**
+ * Base64 decode a string (matches Python's base64.b64decode)
+ */
+function base64Decode(str: string): string {
+    return Buffer.from(str, 'base64').toString('utf-8');
 }
 
 /**
  * Fetch project information from Sovereign
+ * Uses base64 encoding for token and request/response bodies
  */
 async function getProjectInfo(): Promise<SovereignProject | null> {
     try {
+        // Encode token for Authorization header
+        const encodedToken = base64Encode(SOVEREIGN_DEV_TOKEN);
+
+        // Encode request body
+        const requestBody = JSON.stringify({ project_id: DOMINUS_PROJECT_ID });
+        const encodedBody = base64Encode(requestBody);
+
         const response = await fetch(`${SOVEREIGN_URL}/api/projects/get`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'X-API-Key': SOVEREIGN_DEV_TOKEN
+                'Content-Type': 'text/plain',
+                'Authorization': `Bearer ${encodedToken}`
             },
-            body: JSON.stringify({
-                project_id: DOMINUS_PROJECT_ID
-            }),
+            body: encodedBody,
             cache: 'no-store'
         });
 
@@ -38,7 +52,10 @@ async function getProjectInfo(): Promise<SovereignProject | null> {
             return null;
         }
 
-        return await response.json();
+        // Decode base64 response
+        const encodedResponse = await response.text();
+        const decodedResponse = base64Decode(encodedResponse);
+        return JSON.parse(decodedResponse);
     } catch (error) {
         console.error('Error fetching project info:', error);
         return null;
