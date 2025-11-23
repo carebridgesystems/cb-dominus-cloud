@@ -1,5 +1,5 @@
-import { Label } from '@/registry/new-york-v4/ui/label';
-import { SidebarInput } from '@/registry/new-york-v4/ui/sidebar';
+import { Label } from '@/components/ui/label';
+import { SidebarInput } from '@/components/ui/sidebar';
 
 import { Search } from 'lucide-react';
 

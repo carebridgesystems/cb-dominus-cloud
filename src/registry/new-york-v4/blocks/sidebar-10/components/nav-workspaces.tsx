@@ -1,4 +1,4 @@
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/registry/new-york-v4/ui/collapsible';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import {
     SidebarGroup,
     SidebarGroupContent,
@@ -10,7 +10,7 @@ import {
     SidebarMenuSub,
     SidebarMenuSubButton,
     SidebarMenuSubItem
-} from '@/registry/new-york-v4/ui/sidebar';
+} from '@/components/ui/sidebar';
 
 import { ChevronRight, MoreHorizontal, Plus } from 'lucide-react';
 

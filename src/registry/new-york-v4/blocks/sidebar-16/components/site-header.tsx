@@ -8,10 +8,10 @@ import {
     BreadcrumbList,
     BreadcrumbPage,
     BreadcrumbSeparator
-} from '@/registry/new-york-v4/ui/breadcrumb';
-import { Button } from '@/registry/new-york-v4/ui/button';
-import { Separator } from '@/registry/new-york-v4/ui/separator';
-import { useSidebar } from '@/registry/new-york-v4/ui/sidebar';
+} from '@/components/ui/breadcrumb';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import { useSidebar } from '@/components/ui/sidebar';
 
 import { SidebarIcon } from 'lucide-react';
 

@@ -1,7 +1,7 @@
 "use client"
 
-import { Input } from "@/registry/new-york-v4/ui/input"
-import { Switch } from "@/registry/new-york-v4/ui/switch"
+import { Input } from "@/components/ui/input"
+import { Switch } from "@/components/ui/switch"
 import {
   Field,
   FieldContent,
@@ -12,7 +12,7 @@ import {
   FieldLegend,
   FieldSeparator,
   FieldSet,
-} from "@/registry/new-york-v4/ui/field"
+} from "@/components/ui/field"
 
 /**
  * FieldDemo - Example field component

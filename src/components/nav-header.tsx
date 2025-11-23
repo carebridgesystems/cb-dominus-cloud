@@ -9,7 +9,7 @@ import {
     NavigationMenuLink,
     NavigationMenuList,
     navigationMenuTriggerStyle
-} from '@/registry/new-york-v4/ui/navigation-menu';
+} from '@/components/ui/navigation-menu';
 
 /**
  * Navigation header component

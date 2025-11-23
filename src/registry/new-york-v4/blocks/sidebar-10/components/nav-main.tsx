@@ -1,6 +1,6 @@
 'use client';
 
-import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/registry/new-york-v4/ui/sidebar';
+import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 
 import { type LucideIcon } from 'lucide-react';
 

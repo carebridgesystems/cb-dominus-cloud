@@ -1,6 +1,6 @@
 "use client"
 
-import { Toggle } from "@/registry/new-york-v4/ui/toggle"
+import { Toggle } from "@/components/ui/toggle"
 import { Bold, Italic, Underline } from "lucide-react"
 
 /**

@@ -1,4 +1,4 @@
-import { Badge } from '@/registry/new-york-v4/ui/badge';
+import { Badge } from '@/components/ui/badge';
 
 /**
  * BadgeDemo - Example badge component

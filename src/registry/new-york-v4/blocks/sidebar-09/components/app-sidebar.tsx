@@ -3,7 +3,7 @@
 import * as React from 'react';
 
 import { NavUser } from '@/registry/new-york-v4/blocks/sidebar-09/components/nav-user';
-import { Label } from '@/registry/new-york-v4/ui/label';
+import { Label } from '@/components/ui/label';
 import {
     Sidebar,
     SidebarContent,
@@ -16,8 +16,8 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
     useSidebar
-} from '@/registry/new-york-v4/ui/sidebar';
-import { Switch } from '@/registry/new-york-v4/ui/switch';
+} from '@/components/ui/sidebar';
+import { Switch } from '@/components/ui/switch';
 
 import { ArchiveX, Command, File, Inbox, Send, Trash2 } from 'lucide-react';
 

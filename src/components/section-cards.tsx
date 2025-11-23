@@ -1,12 +1,12 @@
 import { TrendingDown, TrendingUp } from 'lucide-react';
-import { Badge } from '@/registry/new-york-v4/ui/badge';
+import { Badge } from '@/components/ui/badge';
 import {
     Card,
     CardDescription,
     CardFooter,
     CardHeader,
     CardTitle
-} from '@/registry/new-york-v4/ui/card';
+} from '@/components/ui/card';
 
 /**
  * SectionCards - Dashboard metric cards component

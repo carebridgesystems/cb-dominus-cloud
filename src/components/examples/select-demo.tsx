@@ -6,7 +6,7 @@ import {
     SelectItem,
     SelectTrigger,
     SelectValue
-} from '@/registry/new-york-v4/ui/select';
+} from '@/components/ui/select';
 
 /**
  * SelectDemo - Example select component

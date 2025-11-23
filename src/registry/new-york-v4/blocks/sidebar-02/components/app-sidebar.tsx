@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { SearchForm } from '@/registry/new-york-v4/blocks/sidebar-02/components/search-form';
 import { VersionSwitcher } from '@/registry/new-york-v4/blocks/sidebar-02/components/version-switcher';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/registry/new-york-v4/ui/collapsible';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import {
     Sidebar,
     SidebarContent,
@@ -14,7 +14,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
     SidebarRail
-} from '@/registry/new-york-v4/ui/sidebar';
+} from '@/components/ui/sidebar';
 
 import { ChevronRight } from 'lucide-react';
 

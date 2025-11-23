@@ -1,6 +1,6 @@
 "use client"
 
-import { Separator } from "@/registry/new-york-v4/ui/separator"
+import { Separator } from "@/components/ui/separator"
 
 /**
  * SeparatorDemo - Example separator component

@@ -9,9 +9,9 @@ import {
     BreadcrumbList,
     BreadcrumbPage,
     BreadcrumbSeparator
-} from '@/registry/new-york-v4/ui/breadcrumb';
-import { Button } from '@/registry/new-york-v4/ui/button';
-import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from '@/registry/new-york-v4/ui/dialog';
+} from '@/components/ui/breadcrumb';
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import {
     Sidebar,
     SidebarContent,
@@ -21,7 +21,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
     SidebarProvider
-} from '@/registry/new-york-v4/ui/sidebar';
+} from '@/components/ui/sidebar';
 
 import {
     Bell,

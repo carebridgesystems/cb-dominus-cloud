@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { AppSidebar } from '@/components/app-sidebar';
 import { SiteHeader } from '@/components/site-header';
-import { SidebarInset, SidebarProvider } from '@/registry/new-york-v4/ui/sidebar';
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 
 /**
  * Dashboard layout with full-height sidebar and header

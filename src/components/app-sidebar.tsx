@@ -17,7 +17,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
     SidebarRail
-} from '@/registry/new-york-v4/ui/sidebar';
+} from '@/components/ui/sidebar';
 import { NavMain, type NavMainItem } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
 

@@ -1,5 +1,5 @@
 import { ArrowRight, Download, Mail } from 'lucide-react';
-import { Button } from '@/registry/new-york-v4/ui/button';
+import { Button } from '@/components/ui/button';
 
 /**
  * ButtonDemo - Example button components

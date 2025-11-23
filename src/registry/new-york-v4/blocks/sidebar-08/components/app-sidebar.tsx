@@ -14,7 +14,7 @@ import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem
-} from '@/registry/new-york-v4/ui/sidebar';
+} from '@/components/ui/sidebar';
 
 import { BookOpen, Bot, Command, Frame, LifeBuoy, Map, PieChart, Send, Settings2, SquareTerminal } from 'lucide-react';
 

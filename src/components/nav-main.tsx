@@ -11,7 +11,7 @@ import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem
-} from '@/registry/new-york-v4/ui/sidebar';
+} from '@/components/ui/sidebar';
 
 export interface NavMainItem {
     title: string;

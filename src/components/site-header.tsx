@@ -9,9 +9,9 @@ import {
     BreadcrumbList,
     BreadcrumbPage,
     BreadcrumbSeparator
-} from '@/registry/new-york-v4/ui/breadcrumb';
-import { Separator } from '@/registry/new-york-v4/ui/separator';
-import { SidebarTrigger } from '@/registry/new-york-v4/ui/sidebar';
+} from '@/components/ui/breadcrumb';
+import { Separator } from '@/components/ui/separator';
+import { SidebarTrigger } from '@/components/ui/sidebar';
 import { usePathname } from 'next/navigation';
 
 export function SiteHeader() {

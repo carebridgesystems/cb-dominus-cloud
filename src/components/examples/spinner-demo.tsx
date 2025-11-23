@@ -1,8 +1,8 @@
 "use client"
 
-import { Spinner } from "@/registry/new-york-v4/ui/spinner"
-import { Button } from "@/registry/new-york-v4/ui/button"
-import { Badge } from "@/registry/new-york-v4/ui/badge"
+import { Spinner } from "@/components/ui/spinner"
+import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
 
 /**
  * SpinnerDemo - Example spinner component

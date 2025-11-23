@@ -13,7 +13,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
     SidebarRail
-} from '@/registry/new-york-v4/ui/sidebar';
+} from '@/components/ui/sidebar';
 
 // This is sample data.
 const data = {

@@ -1,7 +1,7 @@
 "use client"
 
-import { Skeleton } from "@/registry/new-york-v4/ui/skeleton"
-import { Card, CardContent, CardHeader } from "@/registry/new-york-v4/ui/card"
+import { Skeleton } from "@/components/ui/skeleton"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
 
 /**
  * SkeletonDemo - Example skeleton component

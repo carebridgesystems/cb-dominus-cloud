@@ -11,7 +11,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
     SidebarRail
-} from '@/registry/new-york-v4/ui/sidebar';
+} from '@/components/ui/sidebar';
 
 import { GalleryVerticalEnd } from 'lucide-react';
 

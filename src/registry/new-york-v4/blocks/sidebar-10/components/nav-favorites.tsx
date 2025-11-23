@@ -6,7 +6,7 @@ import {
     DropdownMenuItem,
     DropdownMenuSeparator,
     DropdownMenuTrigger
-} from '@/registry/new-york-v4/ui/dropdown-menu';
+} from '@/components/ui/dropdown-menu';
 import {
     SidebarGroup,
     SidebarGroupLabel,
@@ -15,7 +15,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
     useSidebar
-} from '@/registry/new-york-v4/ui/sidebar';
+} from '@/components/ui/sidebar';
 
 import { ArrowUpRight, Link, MoreHorizontal, StarOff, Trash2 } from 'lucide-react';
 

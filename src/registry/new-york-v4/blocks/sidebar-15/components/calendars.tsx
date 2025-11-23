@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/registry/new-york-v4/ui/collapsible';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import {
     SidebarGroup,
     SidebarGroupContent,
@@ -9,7 +9,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
     SidebarSeparator
-} from '@/registry/new-york-v4/ui/sidebar';
+} from '@/components/ui/sidebar';
 
 import { Check, ChevronRight } from 'lucide-react';
 

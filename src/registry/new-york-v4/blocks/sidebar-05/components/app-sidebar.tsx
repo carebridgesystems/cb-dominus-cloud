@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { SearchForm } from '@/registry/new-york-v4/blocks/sidebar-05/components/search-form';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/registry/new-york-v4/ui/collapsible';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import {
     Sidebar,
     SidebarContent,
@@ -14,7 +14,7 @@ import {
     SidebarMenuSubButton,
     SidebarMenuSubItem,
     SidebarRail
-} from '@/registry/new-york-v4/ui/sidebar';
+} from '@/components/ui/sidebar';
 
 import { GalleryVerticalEnd, Minus, Plus } from 'lucide-react';
 

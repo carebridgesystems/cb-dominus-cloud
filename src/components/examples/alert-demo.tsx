@@ -1,5 +1,5 @@
 import { AlertCircle, Terminal } from 'lucide-react';
-import { Alert, AlertDescription, AlertTitle } from '@/registry/new-york-v4/ui/alert';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 /**
  * AlertDemo - Example alert component

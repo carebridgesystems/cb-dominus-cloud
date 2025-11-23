@@ -1,6 +1,6 @@
-import { Button } from '@/registry/new-york-v4/ui/button';
-import { Label } from '@/registry/new-york-v4/ui/label';
-import { Textarea } from '@/registry/new-york-v4/ui/textarea';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 
 /**
  * TextareaDemo - Example textarea component

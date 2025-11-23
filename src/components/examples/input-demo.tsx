@@ -1,6 +1,6 @@
-import { Button } from '@/registry/new-york-v4/ui/button';
-import { Input } from '@/registry/new-york-v4/ui/input';
-import { Label } from '@/registry/new-york-v4/ui/label';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 /**
  * InputDemo - Example input component

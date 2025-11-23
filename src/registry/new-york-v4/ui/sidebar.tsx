@@ -4,12 +4,12 @@ import * as React from 'react';
 
 import { useIsMobile } from '@/registry/new-york-v4/hooks/use-mobile';
 import { cn } from '@/registry/new-york-v4/lib/utils';
-import { Button } from '@/registry/new-york-v4/ui/button';
-import { Input } from '@/registry/new-york-v4/ui/input';
-import { Separator } from '@/registry/new-york-v4/ui/separator';
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@/registry/new-york-v4/ui/sheet';
-import { Skeleton } from '@/registry/new-york-v4/ui/skeleton';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/registry/new-york-v4/ui/tooltip';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Separator } from '@/components/ui/separator';
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@/components/ui/sheet';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Slot } from '@radix-ui/react-slot';
 
 import { VariantProps, cva } from 'class-variance-authority';

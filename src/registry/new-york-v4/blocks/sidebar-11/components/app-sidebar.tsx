@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/registry/new-york-v4/ui/collapsible';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import {
     Sidebar,
     SidebarContent,
@@ -13,7 +13,7 @@ import {
     SidebarMenuItem,
     SidebarMenuSub,
     SidebarRail
-} from '@/registry/new-york-v4/ui/sidebar';
+} from '@/components/ui/sidebar';
 
 import { ChevronRight, File, Folder } from 'lucide-react';
 

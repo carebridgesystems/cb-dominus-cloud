@@ -6,7 +6,7 @@ import { NavMain } from '@/registry/new-york-v4/blocks/sidebar-07/components/nav
 import { NavProjects } from '@/registry/new-york-v4/blocks/sidebar-07/components/nav-projects';
 import { NavUser } from '@/registry/new-york-v4/blocks/sidebar-07/components/nav-user';
 import { TeamSwitcher } from '@/registry/new-york-v4/blocks/sidebar-07/components/team-switcher';
-import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from '@/registry/new-york-v4/ui/sidebar';
+import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from '@/components/ui/sidebar';
 
 import {
     AudioWaveform,

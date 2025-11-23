@@ -1,7 +1,7 @@
 'use client';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/registry/new-york-v4/ui/card';
-import { ChartConfig, ChartContainer, ChartLegendContent } from '@/registry/new-york-v4/ui/chart';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { ChartConfig, ChartContainer, ChartLegendContent } from '@/components/ui/chart';
 
 import { Legend as ChartLegend, Pie, PieChart } from 'recharts';
 

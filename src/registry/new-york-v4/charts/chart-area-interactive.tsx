@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/registry/new-york-v4/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import {
     ChartConfig,
     ChartContainer,
@@ -10,8 +10,8 @@ import {
     ChartLegendContent,
     ChartTooltip,
     ChartTooltipContent
-} from '@/registry/new-york-v4/ui/chart';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/registry/new-york-v4/ui/select';
+} from '@/components/ui/chart';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 import { Area, AreaChart, CartesianGrid, XAxis } from 'recharts';
 

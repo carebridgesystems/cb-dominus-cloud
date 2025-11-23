@@ -1,6 +1,6 @@
 'use client';
 
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/registry/new-york-v4/ui/card';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import {
     ChartConfig,
     ChartContainer,
@@ -8,7 +8,7 @@ import {
     ChartLegendContent,
     ChartTooltip,
     ChartTooltipContent
-} from '@/registry/new-york-v4/ui/chart';
+} from '@/components/ui/chart';
 
 import { TrendingDown, TrendingUp } from 'lucide-react';
 import { Area, AreaChart, CartesianGrid, XAxis } from 'recharts';
