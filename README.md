@@ -1,3 +1,11 @@
+> **⚠️ DEPRECATED — no longer maintained or deployed.**
+>
+> This is a legacy CareBridge Systems repository, superseded by the current
+> Dominus / CareBridge platform. It is retained for historical reference only —
+> do not deploy it or build new work on it.
+
+---
+
 # Next.js 16 Starter (shadcn) [[LIVE DEMO](https://nextjs-16-starter-shadcn.vercel.app/)]
 
 ![MIT License](https://img.shields.io/badge/license-MIT-blue) [![TypeScript](https://badgen.net/badge/icon/typescript?icon=typescript&label)](https://typescriptlang.org) ![ESLint](https://img.shields.io/badge/code%20style-eslint-brightgreen) ![GitHub stars](https://img.shields.io/github/stars/siddharthamaity/nextjs-16-starter-shadcn?style=social) ![GitHub forks](https://img.shields.io/github/forks/siddharthamaity/nextjs-16-starter-shadcn?style=social) [![Say Thanks!](https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg)](https://saythanks.io/to/siddharthamaity)
